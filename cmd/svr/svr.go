@@ -18,7 +18,7 @@ import (
 )
 
 var (
-	serv = flag.String("service", "hello_service", "service name")
+	serv = flag.String("service", "grpcglb", "service name")
 	host = flag.String("host", "localhost", "listening host")
 	port = flag.String("port", "50001", "listening port")
 	reg  = flag.String("reg", "http://123.206.185.178:2379", "register etcd address")

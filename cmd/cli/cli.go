@@ -9,14 +9,12 @@ import (
 
 	"google.golang.org/grpc"
 
-	etcdnaming "github.com/coreos/etcd/clientv3/naming"
-
 	pb "github.com/panyingyun/grpcglb/cmd/helloworld"
 	grpclb "github.com/panyingyun/grpcglb/etcdv3"
 )
 
 var (
-	serv = flag.String("service", "hello_service", "service name")
+	serv = flag.String("service", "grpcglb", "service name")
 	reg  = flag.String("reg", "http://123.206.185.178:2379", "register etcd address")
 )
 

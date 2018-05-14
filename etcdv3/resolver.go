@@ -33,7 +33,7 @@ func (re *Resolver) Resolve(target string) (naming.Watcher, error) {
 	if err != nil {
 		return nil, fmt.Errorf("grpclb: creat etcd3 client failed: %s", err.Error())
 	}
-
+	fmt.Println("New etcd3 Client:", client)
 	// Return watcher
 	return &watcher{re: re, client: *client}, nil
 }

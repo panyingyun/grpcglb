@@ -11,7 +11,7 @@ import (
 )
 
 // Prefix should start and end with no slash
-var Prefix = "etcd3_naming"
+var Prefix = "hellosvr"
 var Deregister = make(chan struct{})
 
 // Register
@@ -31,19 +31,20 @@ func Register(name, host, port string, target string, interval time.Duration, tt
 	if err != nil {
 		return fmt.Errorf("grpclb: create etcd3 lease failed: %v", err)
 	}
-
+	fmt.Println("Lease ID = ", resp.ID)
 	if _, err := client.Put(context.TODO(), serviceKey, serviceValue, etcd3.WithLease(resp.ID)); err != nil {
 		return fmt.Errorf("grpclb: set service '%s' with ttl to etcd3 failed: %s", name, err.Error())
 	}
-
+	fmt.Println("Client Put OK!!!")
 	if _, err := client.KeepAlive(context.TODO(), resp.ID); err != nil {
 		return fmt.Errorf("grpclb: refresh service '%s' with ttl to etcd3 failed: %s", name, err.Error())
 	}
-
+	fmt.Println("Client KeepAlive OK!!!")
 	// wait deregister then delete
 	go func() {
 		<-Deregister
 		client.Delete(context.Background(), serviceKey)
+		fmt.Println("Client Delete OK!!!")
 		Deregister <- struct{}{}
 	}()
 

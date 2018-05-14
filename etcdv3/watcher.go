@@ -51,8 +51,10 @@ func (w *watcher) Next() ([]*naming.Update, error) {
 		for _, ev := range wresp.Events {
 			switch ev.Type {
 			case mvccpb.PUT:
+				fmt.Println("Watch mvccpb.PUT!!!", naming.Add, ev.Kv.Value)
 				return []*naming.Update{{Op: naming.Add, Addr: string(ev.Kv.Value)}}, nil
 			case mvccpb.DELETE:
+				fmt.Println("Watch mvccpb.DELETE!!!", naming.Add, ev.Kv.Value)
 				return []*naming.Update{{Op: naming.Delete, Addr: string(ev.Kv.Value)}}, nil
 			}
 		}
